@@ -1,7 +1,7 @@
 from django.db.models import Count
 from rest_framework import viewsets
 from menus.models import Menu, Dish
-from menus.serializers import MenuSerializer, DishSerializer
+from menus.serializers import MenuSerializer, DishSerializer, MenuDetailSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import filters
 
@@ -9,9 +9,14 @@ from rest_framework import filters
 class MenuViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Menu.objects.all().annotate(dish_count=Count('dish'))
-    serializer_class = MenuSerializer
+    serializer_class = MenuDetailSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['name', 'dish_count']
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return MenuDetailSerializer
+        return MenuSerializer
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
