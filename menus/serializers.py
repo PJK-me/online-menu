@@ -3,9 +3,13 @@ from menus.models import Menu, Dish
 
 
 class MenuSerializer(serializers.ModelSerializer):
+    dish_count = serializers.IntegerField(
+        read_only=True
+    )
+
     class Meta:
         model = Menu
-        fields = ('id', 'name', 'description', 'created_date', 'updated_date')
+        fields = ('id', 'name', 'description', 'dish_count', 'created_date', 'updated_date')
         read_only_fields = ('created_date', 'updated_date')
 
 

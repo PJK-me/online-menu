@@ -8,14 +8,14 @@ from rest_framework import filters
 
 class MenuViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Menu.objects.all()
+    queryset = Menu.objects.all().annotate(dish_count=Count('dish'))
     serializer_class = MenuSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['name']
+    ordering_fields = ['name', 'dish_count']
 
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            self.queryset = self.queryset.annotate(dish_count=Count('dish__id')).filter(dish_count__gt=0)
+        if not self.request.user.is_authenticated:
+            self.queryset = self.queryset.filter(dish_count__gt=0)
         return self.queryset
 
 
