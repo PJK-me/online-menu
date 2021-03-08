@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Menu(models.Model):
     """
         Menu Model
@@ -7,8 +8,8 @@ class Menu(models.Model):
 
     name = models.CharField(max_length=55, unique=True)
     description = models.TextField(max_length=255)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateField(auto_now_add=True)
+    updated_date = models.DateField(auto_now=True)
 
 
 class Dish(models.Model):
@@ -21,5 +22,5 @@ class Dish(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     prepare_time_minutes = models.IntegerField()
     is_vegetarian = models.BooleanField(default=False)
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateField(auto_now_add=True)
+    updated_date = models.DateField(auto_now=True)
