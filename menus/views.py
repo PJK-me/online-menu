@@ -1,5 +1,4 @@
 from django.db.models import Count
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from menus.models import Menu, Dish
 from menus.serializers import MenuSerializer, DishSerializer, MenuDetailSerializer
@@ -11,7 +10,7 @@ class MenuViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Menu.objects.all().annotate(dish_count=Count('dish'))
     serializer_class = MenuDetailSerializer
-    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
+    filter_backends = [filters.OrderingFilter]
     ordering_fields = ['name', 'dish_count']
 
     def get_serializer_class(self):
