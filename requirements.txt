@@ -6,3 +6,4 @@ django-filter==2.4.0
 drf-spectacular==0.13.2
 celery==4.4.1
 redis==3.4.1
+coverage==5.5
