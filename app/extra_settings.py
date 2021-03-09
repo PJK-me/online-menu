@@ -1,7 +1,6 @@
 from datetime import timedelta
 from celery.schedules import crontab
 from .settings import SECRET_KEY
-import app.tasks
 
 
 DATABASES = {
@@ -65,5 +64,7 @@ EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+DEBUG = False
 
 
